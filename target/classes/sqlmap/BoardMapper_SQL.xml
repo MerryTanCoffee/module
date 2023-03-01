@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "board.mapper.BoardMapper">
+
+	<insert id = "create" parameterType="board" useGeneratedKeys="true">
+	<selectKey order="BEFORE" keyProperty="boNo" resultType="int">
+		select BOARD_SEQ.nextval from dual
+	</selectKey> 
+		INSERT INTO BOARD(
+			BO_NO, TITLE, CONTENT, WRITER, REGDATE, HIT		
+		) values (
+			#{boNo}, #{title}, #{content}, #{writer}, sysdate, 0
+		)	
+	</insert>	
+
+	<select id = "list" resultType="board">
+		select
+			BO_NO, TITLE, CONTENT, WRITER, REGDATE, HIT
+		from BOARD
+		where 1=1
+		order by BO_NO desc	
+	</select>
+</mapper>
